@@ -72,6 +72,51 @@ input, select, textarea {
 	appearance: none;
 }
 
+
+
+.custom-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.custom-modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  color: #000;
+}
+
+.custom-modal-content img {
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 6px;
+}
+
+.custom-modal-close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.custom-modal-close:hover {
+  color: #000;
+}
+
+
+
+
 /* Basic */
 
 	html {
@@ -239,6 +284,10 @@ input, select, textarea {
 
 	.align-right {
 		text-align: right;
+	}
+	.justified-dark {
+		text-align: justify;
+		color: #000;
 	}
 
 /* Container */
