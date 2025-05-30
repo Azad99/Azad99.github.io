@@ -18,8 +18,8 @@
 				<div class="inner">
 					<a href="#" class="image avatar"><img src="images/talal2.jpg" alt="" /></a>
 					<h1><strong>Talal Ahmad</strong><br />
-					Robotics & AI Engineer<br />
-					Chemnitz, Germany</h1>
+					<span>Robotics & AI Engineer</span><br />
+					<span>Chemnitz, Germany</span></h1>
 				</div>
 			</header>
 
@@ -58,183 +58,100 @@
 						<div class="row">
 							<article class="col-6 col-12-xsmall work-item">
 							<div class="image fit thumb" onclick="openModal('kukaModal')">
-							<img src="images/fulls/task_1.gif" alt="KUKA youBot Project" />
-							<h3>KUKA youBot Manipulation</h3>
+								<img src="images/fulls/task_1.gif" alt="KUKA youBot Project" />
+								<h3>KUKA youBot Manipulation</h3>
+							</div>
 							</article>
+
 							<div id="kukaModal" class="custom-modal">
 							<div class="custom-modal-content">
 								<span class="custom-modal-close" onclick="closeModal('kukaModal')">&times;</span>
 								<h3>KUKA youBot Manipulation</h3>
-								<p>The goal of this project is to drive the KUKA youBot to pick up a block at the start location and carry it to the desired location in the simulation software V-REP. The project covers the following topics:</p>
+								<p>The goal of this project is to drive the KUKA youBot to pick up a block at the start location and carry it to the desired location in the V-REP simulation software. The project covers the following topics:</p>
 								<ul>
 								<li>Planning the reference trajectory of the end-effector from start point to end point</li>
 								<li>Generating the kinematics model of the youBot, including the mobile base with 4 mecanum wheels and the 5-joint robot arm</li>
 								<li>Applying a feedforward + PI controller to drive the robot toward the reference trajectory</li>
 								<li>Conducting the complete simulation in V-REP</li>
 								</ul>
+
 								<h2>Project Overview</h2>
-								<p>This project focuses on simulating and controlling the motion of the KUKA YouBot mobile manipulator. It consists of the following major components:</p>
 								<h3>1. Kinematics Simulator for YouBot</h3>
-								<p>
-									In this section, I developed a program that calculates the robot’s next configuration based on the current configuration, joint velocities, and wheel velocities. Each line of the input CSV file contains 13 comma-separated values:
-								</p>
+								<p>I developed a program that calculates the robot’s next configuration based on the current configuration, joint velocities, and wheel velocities. Each line of the input CSV file contains 13 comma-separated values.</p>
 
-								<head>
-								<meta charset="UTF-8">
-								<title>Robot Configuration Vector</title>
-								<style>
-									body {
-										font-family: "Georgia", serif;
-										font-size: 18px;
-									}
-									.vector {
-										display: inline-block;
-										vertical-align: middle;
-										margin-left: 10px;
-									}
-									.matrix {
-										border-left: 2px solid black;
-										border-right: 2px solid black;
-										padding: 10px 20px;
-									}
-									.eq {
-										display: flex;
-										align-items: center;
-									}
-									.value-list {
-										margin-top: 20px;
-									}
-								</style>
-							</head>
-							<body>
-
-								<div class="eq">
-									<div><strong>q =</strong></div>
-									<div class="vector">
-										<div class="matrix">
-											<div>&phi;<sub>chassis</sub></div>
-											<div>x<sub>chassis</sub></div>
-											<div>y<sub>chassis</sub></div>
-											<div>J<sub>1</sub></div>
-											<div>J<sub>2</sub></div>
-											<div>J<sub>3</sub></div>
-											<div>J<sub>4</sub></div>
-											<div>J<sub>5</sub></div>
-											<div>W<sub>1</sub></div>
-											<div>W<sub>2</sub></div>
-											<div>W<sub>3</sub></div>
-											<div>W<sub>4</sub></div>
-											<div>Gripper</div>
-										</div>
-									</div>
+								<div class="eq" style="font-family: Georgia, serif; font-size: 18px;">
+								<strong>q =</strong>
+								<span>
+									[ &phi;<sub>chassis</sub>, x<sub>chassis</sub>, y<sub>chassis</sub>, J<sub>1</sub>, J<sub>2</sub>, J<sub>3</sub>, J<sub>4</sub>, J<sub>5</sub>, W<sub>1</sub>, W<sub>2</sub>, W<sub>3</sub>, W<sub>4</sub>, Gripper ]
+								</span>
 								</div>
-
-								<div class="value-list">
-									<p><strong>Values:</strong></p>
-									<p>
-										q = [−0.75959, −0.47352, 0.058167, 0.80405, −0.91639, −0.011436, 0.054333, 0.00535, 1.506, −1.3338, 1.5582, 1.6136, 0]
-									</p>
-									<ul>
-										<li>&phi;<sub>chassis</sub> = −0.75959</li>
-										<li>x<sub>chassis</sub> = −0.47352</li>
-										<li>y<sub>chassis</sub> = 0.058167</li>
-										<li>J<sub>1</sub> = 0.80405</li>
-										<li>J<sub>2</sub> = −0.91639</li>
-										<li>J<sub>3</sub> = −0.011436</li>
-										<li>J<sub>4</sub> = 0.054333</li>
-										<li>J<sub>5</sub> = 0.00535</li>
-										<li>W<sub>1</sub> = 1.506</li>
-										<li>W<sub>2</sub> = −1.3338</li>
-										<li>W<sub>3</sub> = 1.5582</li>
-										<li>W<sub>4</sub> = 1.6136</li>
-										<li>Gripper = 0</li>
-									</ul>
-								</div>
-
 
 								<p>This corresponds to:</p>
 								<ul>
-									<li>φ<sub>chassis</sub>: Chassis orientation (yaw)</li>
-									<li>x<sub>chassis</sub>: Chassis X-position</li>
-									<li>y<sub>chassis</sub>: Chassis Y-position</li>
-									<li>J<sub>1</sub> to J<sub>5</sub>: Arm joint angles</li>
-									<li>W<sub>1</sub> to W<sub>4</sub>: Wheel angles</li>
-									<li>Gripper state: 0 (open) or 1 (closed)</li>
+								<li>φ<sub>chassis</sub>: Chassis orientation (yaw)</li>
+								<li>x<sub>chassis</sub>: Chassis X-position</li>
+								<li>y<sub>chassis</sub>: Chassis Y-position</li>
+								<li>J<sub>1</sub> to J<sub>5</sub>: Arm joint angles</li>
+								<li>W<sub>1</sub> to W<sub>4</sub>: Wheel angles</li>
+								<li>Gripper state: 0 (open) or 1 (closed)</li>
 								</ul>
-
 								<p>Velocity limits are enforced to prevent unsafe or unrealistic movements.</p>
 
 								<h3>2. End-Effector Trajectory Planning</h3>
-								<p>
-									I created a trajectory generator for the end-effector by specifying its poses at various keyframes relative to either the world or cube frame. The planned trajectory includes the following steps:
-								</p>
+								<p>I created a trajectory generator for the end-effector by specifying its poses at various keyframes relative to either the world or cube frame. The planned trajectory includes the following steps:</p>
 								<ol>
-									<li>Start at rest in the initial configuration</li>
-									<li>Move from initial to standoff position (above cube)</li>
-									<li>Move from standoff to grasp position</li>
-									<li>Close the gripper</li>
-									<li>Return to standoff with the grasped object</li>
-									<li>Move to goal standoff position</li>
-									<li>Move to final goal position</li>
-									<li>Open the gripper</li>
-									<li>Return to goal standoff position</li>
+								<li>Start at rest in the initial configuration</li>
+								<li>Move to standoff position (above cube)</li>
+								<li>Descend to grasp position</li>
+								<li>Close the gripper</li>
+								<li>Return to standoff with the object</li>
+								<li>Move to goal standoff position</li>
+								<li>Move to final goal position</li>
+								<li>Open the gripper</li>
+								<li>Return to standoff</li>
 								</ol>
-
 								<img src="images/fulls/task_1.gif" alt="Simulation" />
-								  <h3>3. Feedback Control for Trajectory Tracking</h3>
-								<p>
-									To ensure accurate tracking, I implemented a PI feedback controller in task space. The commanded end-effector twist <strong>ν(t)</strong> is computed using a kinematic feedforward plus feedback control law:
-								</p>
 
+								<h3>3. Feedback Control for Trajectory Tracking</h3>
+								<p>To ensure accurate tracking, I implemented a PI feedback controller in task space. The commanded end-effector twist ν(t) is computed using:</p>
 								<p>
-									ν(t) = [Ad<sub>X<sup>−1</sup>Xd</sub>] · ν<sub>d</sub>(t) + K<sub>p</sub> · X<sub>err</sub>(t) + K<sub>i</sub> · ∫<sub>0</sub><sup>t</sup> X<sub>err</sub>(τ) dτ
+								ν(t) = [Ad<sub>X<sup>−1</sup>Xd</sub>] · ν<sub>d</sub>(t) + K<sub>p</sub> · X<sub>err</sub>(t) + K<sub>i</sub> · ∫<sub>0</sub><sup>t</sup> X<sub>err</sub>(τ) dτ
 								</p>
-
-								<p>
-									Where:
-									<ul>
-										<li><strong>ν(t)</strong>: Actual commanded twist</li>
-										<li><strong>ν<sub>d</sub>(t)</strong>: Desired twist</li>
-										<li><strong>X<sub>err</sub>(t)</strong>: Error between current and desired end-effector configurations</li>
-										<li><strong>K<sub>p</sub></strong>: Proportional gain</li>
-										<li><strong>K<sub>i</sub></strong>: Integral gain</li>
-									</ul>
-								</p>
-								<p>The corresponding six elements of end-effector error twist along with time are:</p>
 								<ul>
-								<li>This controller gives the perfect motion of the robot. The motion is smooth and converges fast but having overshooting at the start.</li>
+								<li>ν(t): Actual commanded twist</li>
+								<li>ν<sub>d</sub>(t): Desired twist</li>
+								<li>X<sub>err</sub>(t): Error between current and desired configurations</li>
+								<li>K<sub>p</sub>: Proportional gain</li>
+								<li>K<sub>i</sub>: Integral gain</li>
+								</ul>
+
+								<p>Controller performance insights:</p>
+								<ul>
+								<li>High K<sub>p</sub>, low K<sub>i</sub>: Smooth, fast convergence with minor overshoot</li>
+								<li>Low K<sub>p</sub>, high K<sub>i</sub>: Noticeable overshoot, slower convergence</li>
+								</ul>
+
+								<h2>Results</h2>
+								<h3>1. Motion Planning with Varying Cube Positions</h3>
+								<p>Simulations were run using various initial and final cube positions with different robot configurations. The robot consistently followed the planned path and completed the object manipulation task.</p>
+
+								<h3>2. Analysis of Control Gains</h3>
+								<p>The effect of different control gains on tracking accuracy was evaluated:</p>
+								<ul>
+								<li>Resulted in overshoot and slower convergence</li>
 								</ul>
 								<img src="images/fulls/kuka_re1.png" alt="KUKA Arm" />
 								<ul>
-								<li>This controller gives the perfect motion of the robot. The motion is smooth and converges fast without overshooting.</li>
+								<li>Produced smooth, stable motion with minimal error</li>
 								</ul>
-								 <h2>Results</h2>
-
-								<h3>1. Motion Planning with Varying Cube Positions</h3>
-								<p>
-									Simulations were run with various cube start and goal positions, and different robot initial configurations. One example scenario includes:
-								</p>
-								<ul>
-									<li>Initial position: (1, 1, 0)</li>
-									<li>Final position: (1, −1, π/2)</li>
-								</ul>
-								<p>The robot successfully follows the planned path and performs the object manipulation task.</p>
-
-								<h3>2. Analysis of Control Gains</h3>
-								<p>
-									The effect of different control gains on trajectory tracking was explored by analyzing the twist error over time.
-								</p>
-
-								<ul>
-									<li><strong>K<sub>p</sub> = 20, K<sub>i</sub> = 5</strong> — Produced smooth, stable control with minimal error.</li>
-									<li><strong>K<sub>p</sub> = 2, K<sub>i</sub> = 40</strong> — Resulted in significant overshoot and slower convergence.</li>
-								</ul>
-
-								<p>These tests demonstrate the importance of tuning control gains for optimal performance in mobile manipulation tasks.</p>
 								<img src="images/fulls/kuka_re2.png" alt="KUKA Arm" />
+
+								<p>These results highlight the importance of tuning control gains for optimal performance in mobile manipulation tasks.</p>
 							</div>
 							</div>
 
+
+						<!-- Three -->
 							</article>
 							<article class="col-6 col-12-xsmall work-item">
 								<div class="image fit thumb" onclick="openModal('kukaModal')">
@@ -290,11 +207,14 @@
 						</ul>
 					</section>
 
-				<!-- Three -->
+				<!-- Four -->
 					<section id="three">
 						<h2>Get In Touch</h2>
-						<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
-						<div class="row">
+						<p>
+							I'm always open to exciting opportunities, collaboration ideas, or just a good conversation about robotics, AI, or innovative tech.
+							Whether you have a project in mind, want to connect professionally, or simply say hello — feel free to reach out!
+						</p>
+												<div class="row">
 							<div class="col-8 col-12-small">
 								<form method="post" action="#">
 									<div class="row gtr-uniform gtr-50">
@@ -311,19 +231,21 @@
 								<ul class="labeled-icons">
 									<li>
 										<h3 class="icon solid fa-home"><span class="label">Address</span></h3>
-										1234 Somewhere Rd.<br />
-										Nashville, TN 00000<br />
-										United States
+										Chemnitz, Germany<br />
 									</li>
 									<li>
 										<h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
-										000-000-0000
+										(+49)-162-9844945
 									</li>
 									<li>
 										<h3 class="icon solid fa-envelope"><span class="label">Email</span></h3>
-										<a href="#">hello@untitled.tld</a>
+										<a href="#">talalahmad_20@yahoo.com</a>
 									</li>
 								</ul>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="demo-human" name="demo-human" checked>
+								<label for="demo-human">I am a human and not a robot</label>
 							</div>
 						</div>
 					</section>

@@ -289,7 +289,14 @@ input, select, textarea {
 		text-align: justify;
 		color: #000;
 	}
-
+	.matrix {
+		border-left: 3px solid black;
+		border-right: 3px solid black;
+		padding: 10px 20px;
+		display: inline-block;
+		font-family: 'Georgia', serif;
+		font-size: 18px;
+	}
 /* Container */
 
 	.container {
