@@ -831,6 +831,21 @@
 						}, 1000);
 						};
 					})();
+
+					// Support touch interaction for mobile
+					function handleTouchEvent(evt) {
+					if (evt.type === 'touchstart') {
+						const touch = evt.touches[0];
+						const target = document.elementFromPoint(touch.clientX, touch.clientY);
+						if (target && target.classList.contains("balloon")) {
+						target.click();  // simulate click on touch
+						}
+					}
+					}
+
+					document.addEventListener("touchstart", handleTouchEvent, { passive: true });
+					
+
 					</script>
 					<!-- ────────────────────────────────────────────────────────── -->
   

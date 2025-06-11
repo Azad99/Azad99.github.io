@@ -72,6 +72,12 @@ input, select, textarea {
 	appearance: none;
 }
 
+canvas {
+	width: 100%;
+	height: auto;
+	touch-action: manipulation;
+  }
+  
 
 .skills-container {
 	display: flex;
