@@ -8,7 +8,7 @@
 	<head>
 		<title>Talal Ahmad | Robotics & AI Engineer</title>		
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body class="is-preload">
@@ -41,14 +41,11 @@
 						My work bridges the gap between research and application, aligning with Fraunhofer’s mission to turn cutting-edge ideas into practical, industrial-strength robotics solutions. I thrive in interdisciplinary teams, enjoy tackling complex problems, and have a proven ability to lead and contribute to high-impact robotics projects from concept to deployment.
 						</p>
 						<p>
-						I'm excited by the opportunity to help shape the future of autonomous robotics and contribute to innovations that have real societal value.
-						</p>
-						<p>
-						If you'd like to collaborate or discuss opportunities, please feel free to contact me using the information below.
+						I'm excited by the opportunity to help shape the future of autonomous robotics and contribute to innovations that have real societal value. If you'd like to collaborate or discuss opportunities, please feel free to contact me using the information below.
 						</p>
 					</section>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<a href="#contact" class="button">Learn More</a>
 						</ul>
 					</section>
 
@@ -131,7 +128,7 @@
 								<li>Low K<sub>p</sub>, high K<sub>i</sub>: Noticeable overshoot, slower convergence</li>
 								</ul>
 
-								<h2>Results</h2>
+								<h2>Results:</h2>
 								<h3>1. Motion Planning with Varying Cube Positions</h3>
 								<p>Simulations were run using various initial and final cube positions with different robot configurations. The robot consistently followed the planned path and completed the object manipulation task.</p>
 
@@ -147,68 +144,412 @@
 								<img src="images/fulls/kuka_re2.png" alt="KUKA Arm" />
 
 								<p>These results highlight the importance of tuning control gains for optimal performance in mobile manipulation tasks.</p>
+								<p><strong>Note:</strong> Due to client confidentiality, the source code is not publicly available.</p>							
 							</div>
-							</div>
-
+						</div>
 
 						<!-- Three -->
 							</article>
 							<article class="col-6 col-12-xsmall work-item">
-								<div class="image fit thumb" onclick="openModal('kukaModal')">
+								<div class="image fit thumb" onclick="openModal('PoseCNNModal')">
 							<img src="images/fulls/Demo.gif" alt="KUKA youBot Project" />
-							<h3>KUKA youBot Manipulation</h3>
+							<h3>PoseCNN Implementation with ROS</h3>
 							</article>
-							<div id="kukaModal" class="custom-modal">
+							<div id="PoseCNNModal" class="custom-modal">
 							<div class="custom-modal-content">
-								<span class="custom-modal-close" onclick="closeModal('kukaModal')">&times;</span>
-								<h3>KUKA youBot Manipulation</h3>
-								<p>The goal of this project is to drive the KUKA youBot to pick up a block at the start location and carry it to the desired location in the simulation software V-REP. The project covers the following topics:</p>
+								<span class="custom-modal-close" onclick="closeModal('PoseCNNModal')">&times;</span>
+								<h3>PoseCNN Implementation with ROS</h3>
+								<p>PoseCNN is a convolutional neural network architecture designed to estimate the 6D pose (3D translation + 3D rotation) of objects directly from RGB images. It operates in two main stages: semantic segmentation to localize objects, and pose regression to estimate their 3D position and orientation. The model leverages a modified VGG16 backbone and integrates translation regression and quaternion-based rotation estimation in a unified framework.</p>
+								<p>For custom objects, PoseCNN requires:</p>
 								<ul>
-								<li>Planning the reference trajectory of the end-effector from start point to end point</li>
-								<li>Generating the kinematics model of the youBot, including the mobile base with 4 mecanum wheels and the 5-joint robot arm</li>
-								<li>Applying a feedforward + PI controller to drive the robot toward the reference trajectory</li>
-								<li>Conducting the complete simulation in V-REP</li>
+								<li>A synthetic or real dataset of labeled 6D poses with accurate object CAD models or meshes.</li>
+								<li>Training of the network on these new objects using either the provided training pipelines or fine-tuning pre-trained weights.</li>
+								<li>Optional integration with DenseFusion or ICP refinement for increased pose accuracy using RGB-D data.</li>
 								</ul>
+								<p>The architecture is particularly suited for robotics applications such as bin picking, AR interaction, or autonomous manipulation, where real-time object pose understanding is critical. By learning pose information end-to-end from RGB images, PoseCNN avoids heavy reliance on depth data or keypoint detection, making it flexible for various environments and object types.</p>
 								<img src="images/fulls/Demo.gif" alt="Simulation" />
-								<p>The corresponding six elements of end-effector error twist along with time are:</p>
-								<ul>
-								<li>This controller gives the perfect motion of the robot. The motion is smooth and converges fast but having overshooting at the start.</li>
-								</ul>
-								<img src="images/fulls/kuka_re1.png" alt="KUKA Arm" />
-								<ul>
-								<li>This controller gives the perfect motion of the robot. The motion is smooth and converges fast without overshooting.</li>
-								</ul>
-								<img src="images/fulls/kuka_re2.png" alt="KUKA Arm" />
+								<p><strong>Note:</strong> Due to client confidentiality, the source code is not publicly available.</p>							
 							</div>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/03.jpg" class="image fit thumb"><img src="images/thumbs/03.jpg" alt="" /></a>
-								<h3>Tortor metus commodo</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/04.jpg" class="image fit thumb"><img src="images/thumbs/04.jpg" alt="" /></a>
-								<h3>Quam neque phasellus</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/05.jpg" class="image fit thumb"><img src="images/thumbs/05.jpg" alt="" /></a>
-								<h3>Nunc enim commodo aliquet</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/06.jpg" class="image fit thumb"><img src="images/thumbs/06.jpg" alt="" /></a>
-								<h3>Risus ornare lacinia</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
-							</article>
 						</div>
-						<ul class="actions">
-							<li><a href="#" class="button">Full Portfolio</a></li>
+
+
+						<!-- Three -->
+						</article>
+						<article class="col-6 col-12-xsmall work-item">
+							<div class="image fit thumb" onclick="openModal('vio')">
+						<img src="images/fulls/vio.gif" alt="VIO" />
+						<h3>Real-Time Trajectory Generation using Visual SLAM</h3>
+						</article>
+						<div id="vio" class="custom-modal">
+						<div class="custom-modal-content">
+							<span class="custom-modal-close" onclick="closeModal('vio')">&times;</span>
+							<h3>Real-Time Trajectory Generation using Visual SLAM</h3>
+							<p>This project demonstrates a complete workflow for integrating real-time visual tracking data with industrial robot motion planning. Using external camera tracking and pose estimation, I developed a system that processes raw spatial data, smooths it for accuracy, and generates executable movement paths for a UR robot. The goal was to enable precise and adaptive robot control based on environmental feedback, supporting applications such as smart manipulation, inspection, or dynamic interaction in collaborative settings.</p>
+							<ul>
+								<li><span class="feature-title">Live Sensor Fusion Demo:</span> The program streams video from an AI camera and, at the same time, reads the current position of a collaborative robot arm. Every frame is matched with the robot’s pose so you always know exactly where the camera and robot are in space.</li>
+						  
+								<li><span class="feature-title">Instant 3-D Visualisation:</span> As the system runs, an interactive 3-D window shows the camera’s trajectory and orientation as a little wire-frame camera icon moving through space. You can watch the path unfold in real time while the robot works.</li>
+						  
+								<li><span class="feature-title">One-Key Data Capture:</span> Pressing a single key tells the program to start recording. From that moment on, every new camera view and robot pose is logged automatically so you can replay or analyse the session later without disrupting the demo.</li>
+						  
+								<li><span class="feature-title">Automatic Session Log:</span> The app quietly writes everything to a lightweight JSON file: the very first camera view (for reference), every subsequent view, and each matching robot pose. This builds a ready-to-use dataset for calibration, research or quality control.</li>
+						  
+								<li><span class="feature-title">Smooth User Experience:</span> A background thread keeps all the heavy lifting out of the way, ensuring the 3-D viewer never stutters and the camera preview remains fluid. If you’re done, just close the window or tap “q” and the program shuts down gracefully.</li>
+							  </ul>
+
+							<!-- ✅ Proper video tag -->
+							<video width="100%" controls autoplay muted loop>
+								<source src="images/fulls/Untitled video - Made with Clipchamp.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+							<h1>Robot Path Generation & Execution</h1>
+							<ul>
+							  <li><span class="feature-title">Turns Raw Tracking Data into a Smooth Robot Path:</span> The program reads a JSON file of camera-tracked points, gently filters out noise, and converts the trail into evenly spaced waypoints the robot can follow.</li>
+						  
+							  <li><span class="feature-title">Creates an Instant 3-D Preview:</span> Before the robot ever moves, the trajectory is plotted in a colourful 3-D window so you can visually confirm that every point sits where you expect.</li>
+						  
+							  <li><span class="feature-title">Automatically Generates a Full Motion Plan:</span> From a single “home” pose, the script assembles a complete move-sequence: first a safe joint move to the start, then a continuous linear glide through each waypoint at a comfortable speed.</li>
+						  
+							  <li><span class="feature-title">Runs the Robot and Reports Progress Live:</span> Once you hit “go”, the robot executes the path autonomously while the console keeps you posted (“Moving to path waypoint …”) so you always know how far it’s gotten.</li>
+						  
+							  <li><span class="feature-title">Exports the Final Path for Reuse:</span> All corrected waypoints are saved to a new JSON file, giving you a ready-made blueprint for future runs, simulations, or documentation.</li>
+							</ul>							
+							<!-- ✅ Proper video tag -->
+							<video width="100%" controls autoplay muted loop>
+								<source src="images/fulls/Untitled video - Made with Clipchamp (2).mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+							<p><strong>Note:</strong> Due to client confidentiality, the source code is not publicly available.</p>							
+						</div>
+					</div>
+						
+
+
+
+					<!-- Four -->
+					<article class="col-6 col-12-xsmall work-item">
+						<div class="image fit thumb" onclick="openModal('handeye')">
+						<img src="images/fulls/hand eye.gif" alt="Hand-Eye Calibration" />
+						<h3>Hand-Eye Calibration using OpenCV and PyQt5</h3>
+						</div>
+					</article>
+					
+					<div id="handeye" class="custom-modal">
+						<div class="custom-modal-content">
+						<span class="custom-modal-close" onclick="closeModal('handeye')">&times;</span>
+						<h3>Hand-Eye Calibration using OpenCV and PyQt5</h3>
+					
+						<p><strong>Purpose:</strong> A desktop application that simplifies the entire hand-eye calibration workflow for camera-guided robots. It lets you capture synchronized robot poses and camera images, then runs Charuco-board calibration and five classic hand-eye algorithms—all in one click.</p>
+					
+						<h3>Key Capabilities</h3>
+						<table class="features-table">
+							<thead>
+							<tr>
+								<th>Feature</th>
+								<th>How it helps</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>Live robot &amp; camera link</td>
+								<td>Connects to Universal Robots, Elite, or Techman arms over RTDE/RTSI; streams live colour + depth frames from Orbbec, Realsense, or OAK-D.</td>
+							</tr>
+							<tr>
+								<td>One-button data capture</td>
+								<td>Records the robot’s joint/TCP pose and grabs a perfectly timestamped camera image into a numbered dataset folder.</td>
+							</tr>
+							<tr>
+								<td>Batch Charuco detection</td>
+								<td>Loads any folder of PNGs, auto-detects the Charuco board, and stores all corner IDs for calibration.</td>
+							</tr>
+							<tr>
+								<td>Five hand-eye methods</td>
+								<td>Computes PARK, ANDREFF, DANIILIDIS, HORAUD, and TSAI solutions in sequence, logs each rotation/translation pair, and saves them to a text file.</td>
+							</tr>
+							<tr>
+								<td>Rich GUI with live feed</td>
+								<td>PyQt5 interface shows connection status, camera preview, and a scrollable timestamped log; multithreaded so the UI never blocks.</td>
+							</tr>
+							<tr>
+								<td>Portable results</td>
+								<td>Outputs JSON/CSV pose data and annotated “detected_*.png” images for verifiable, reproducible calibration records.</td>
+							</tr>
+							</tbody>
+						</table>
+					
+						<h3>Why It Matters</h3>
+						<p>This tool turns a traditionally command-line, script-heavy process into a turnkey workflow that technicians and researchers can run without coding. It speeds up data collection, reduces human error, and produces ready-to-use extrinsic parameters for vision-guided pick-and-place, inspection, or welding robots.</p>
+
+						<video width="100%" controls autoplay muted loop>
+							<source src="images/fulls/handeye.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					
+							<p><strong>Note:</strong> Due to client confidentiality, the source code is not publicly available.</p>						
+					</div>
+				</div>
+					
+
+			
+
+				<!-- Four -->
+				<article class="col-6 col-12-xsmall work-item">
+					<div class="image fit thumb" onclick="openModal('TurtleBot3')">
+					<img src="images/fulls/turtle.gif" alt="Hand-Eye Calibration" />
+					<h3>SLAM Benchmarking with TurtleBot3 (ROS + Gazebo)</h3>
+					</div>
+				</article>
+					
+				<div id="TurtleBot3" class="custom-modal">
+					<div class="custom-modal-content">
+					<span class="custom-modal-close" onclick="closeModal('TurtleBot3')">&times;</span>
+						<h3>SLAM Benchmarking with TurtleBot3 (ROS + Gazebo)</h3>
+						<p>This project explores and compares multiple <strong>Simultaneous Localization and Mapping (SLAM)</strong> algorithms using the TurtleBot3 robot in a Gazebo-based ROS simulation environment. The objective was to evaluate each method’s ability to build accurate maps and maintain localization under different conditions.
+						</p>
+					
+						<!-- Objective -->
+						<h3>Objective</h3>
+						<p>
+						Test and analyze various open-source SLAM algorithms in a controlled simulation, identifying each approach’s strengths and limitations for real-world robot navigation.
+						</p>
+					
+						<!-- Technologies -->
+						<h3>Technologies Used</h3>
+						<ul>
+						<li>Robot Operating System (ROS)  – <em>Melodic &amp; Noetic</em></li>
+						<li>Gazebo Simulator</li>
+						<li>TurtleBot3 Waffle Pi</li>
+						<li>Rviz for Visualization</li>
+						<li>SLAM Packages:
+							<ul>
+							<li>GMapping (2D SLAM)</li>
+							<li>Cartographer (Google’s real-time SLAM)</li>
+							<li>Hector SLAM</li>
+							<li>Karto SLAM</li>
+							<li>TinySLAM</li>
+							</ul>
+						</li>
 						</ul>
+					
+						<!-- Approach -->
+						<h3>Approach</h3>
+						<ol>
+						<li>Built a virtual office-like environment in Gazebo with TurtleBot3 as the mobile platform.</li>
+						<li>Launched each SLAM algorithm independently via ROS launch files and custom <code>.yaml</code> configs.</li>
+						<li>Used keyboard teleoperation (<code>teleop</code>) to explore while visualizing map quality in Rviz.</li>
+						<li>Evaluated outputs for map accuracy, drift, responsiveness, and CPU load.</li>
+						</ol>
+					
+						<!-- Insights Table -->
+						<h3>Insights &amp; Observations</h3>
+						<table class="features-table">
+						<thead>
+							<tr>
+							<th>Algorithm</th>
+							<th>Strengths</th>
+							<th>Weaknesses</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<td>GMapping</td>
+							<td>Lightweight, easy to set up</td>
+							<td>Loses accuracy with fast motion</td>
+							</tr>
+							<tr>
+							<td>Cartographer</td>
+							<td>Extremely accurate, fast updates</td>
+							<td>CPU intensive, config-heavy</td>
+							</tr>
+							<tr>
+							<td>Hector SLAM</td>
+							<td>No odometry needed, fast response</td>
+							<td>Map sometimes distorted in corners</td>
+							</tr>
+							<tr>
+							<td>Karto SLAM</td>
+							<td>Good quality with moderate tuning</td>
+							<td>Less active community</td>
+							</tr>
+							<tr>
+							<td>TinySLAM</td>
+							<td>Very simple, minimal resource usage</td>
+							<td>Limited robustness in complex environments</td>
+							</tr>
+						</tbody>
+						</table>
+
+
+						<video width="100%" controls autoplay muted loop>
+							<source src="images/fulls/turtlevideo.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					
+
+					
+						<!-- Why It Matters -->
+						<h3>Why It Matters</h3>
+						<p>
+						SLAM is the backbone of autonomous navigation in mobile robotics. This benchmarking effort deepened understanding of different SLAM techniques and provides a practical guide for selecting the right algorithm based on hardware constraints and mission requirements.
+						</p>
+					</div>  
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- Five -->
+			<section id="Five">
+			
+				
+			
+
+					<section id="skills" class="skills-section">
+						<h2 class="section-title">MY SKILLS</h2>
+						<div class="skills-container">
+						  
+						  <!-- Skill Block -->
+						  <div class="skill-category">
+							<img src="images/skills/robotics.jpg" alt="Robotics Icon">
+							<h3>Robotics</h3>
+							<ul>
+								<li>Robot Operating System (ROS 1 &amp; 2)</li>
+								<li>Gazebo Simulator</li>
+								<li>MoveIt Motion Planning Framework</li>
+								<li>Rviz Visualization Tool</li>
+								<li>UR10 Robot</li>
+								<li>Elite Robot Platform</li>
+								<li>Techman Robot</li>
+								<li>KUKA Industrial Robot</li>
+								<li>ABB Robot Systems</li>
+								<li>TurtleBot Mobile Robot</li>
+								<li>Arduino Microcontroller</li>
+								<li>Jetson Nano</li>
+							  </ul>
+						  </div>
+					  
+						  <div class="skill-category">
+							<img src="images/skills/programming.jpg" alt="Programming Icon">
+							<h3>Programming &amp; Tools</h3>
+							<ul>
+								<li>Python</li>
+								<li>C / C++</li>
+								<li>Bash</li>
+								<li>MATLAB</li>
+								<li>Git</li>
+								<li>HTML &amp; CSS</li>
+								<li>JavaScript</li>
+								<li>Docker</li>
+								<li>Jenkins</li>
+								<li>CI/CD Pipelines</li>
+								<li>VS Code</li>
+								<li>Linux</li>
+							  </ul>
+						  </div>
+					  
+						  <div class="skill-category">
+							<img src="images/skills/computer vision.jpg" alt="Computer vision icon">
+							<h3>Computer Vision</h3>
+							<ul>
+								<li>Image Processing</li>
+								<li>3D Object Detection</li>
+								<li>Segmentation</li>
+								<li>SLAM (Simultaneous Localization and Mapping)</li>
+								<li>Pose Estimation</li>
+								<li>OpenCV</li>
+								<li>Open3D</li>
+								<li>CUDA Programming</li>
+								<li>CARLA Simulator</li>
+							  </ul>
+						  </div>
+					  
+						  <div class="skill-category">
+							<img src="images/skills/machine learning.jpg" alt="Machine learning Icon">
+							<h3>Machine Learning</h3>
+							<ul>
+								<li>Supervised / Unsupervised Learning</li>
+								<li>Deep Learning</li>
+								<li>Reinforcement Learning</li>
+								<li>Model Deployment</li>
+								<li>PyTorch</li>
+								<li>TensorFlow</li>
+								<li>Scikit-learn</li>
+								<li>Keras</li>
+								<li>XGBoost</li>
+							  </ul>
+						  </div>
+					  
+						  <div class="skill-category">
+							<img src="images/skills/cloud-deployment.jpg" alt="cloud-deployment Icon">
+							<h3>Cloud &amp; Deployment</h3>
+							<ul>
+								<li>Docker</li>
+								<li>Docker Compose</li>
+								<li>Kubernetes (basic)</li>
+								<li>Jenkins</li>
+								<li>GitHub Actions</li>
+								<li>Model Serving</li>
+								<li>TensorFlow Serving</li>
+								<li>TorchServe</li>
+								<li>ONNX Runtime</li>
+								<li>AWS (Amazon Web Services)</li>
+								<li>Google Cloud Platform (GCP)</li>
+								<li>Microsoft Azure (basic)</li>
+							  </ul>
+						  </div>
+
+
+						  <div class="skill-category">
+							<img src="images/skills/Data-Vizualisation.jpg" alt="data Visualisation Icon">
+							<h3>Data &amp; Visualization</h3>
+							<ul>
+								<li>Pandas</li>
+								<li>NumPy</li>
+								<li>Matplotlib</li>
+								<li>Seaborn</li>
+								<li>Jupyter Notebook</li>
+								<li>Streamlit</li>
+							  </ul>
+						  </div>
+
+
+
+					  
+						</div>
+					</section>
+					  
+
+
+					
 					</section>
 
 						<!-- Four -->
-						<section id="Four">
+						<section id="contact">
 						<h2>Get In Touch</h2>
 						<p>
 							I'm always open to exciting opportunities, collaboration ideas, or just a good conversation about robotics, AI, or innovative tech.
@@ -218,12 +559,7 @@
 						<div class="row">
 							<!-- Contact Form -->
 							<div class="col-8 col-12-small">
-							<form method="post" action="#">
-								<form
-									action="https://formspree.io/f/mzzgprnr"
-									method="POST"
-									enctype="multipart/form-data"
-								>
+								<form id="contact-form" action="https://formspree.io/f/mzzgprnr" method="POST">
 								<div class="row gtr-uniform gtr-50">
 								<div class="col-6 col-12-xsmall">
 									<input type="text" name="name" id="name" placeholder="Name" required />
@@ -235,16 +571,19 @@
 									<textarea name="message" id="message" placeholder="Message" rows="4" required></textarea>
 								</div>
 								<div class="col-12">
-									<input type="checkbox" id="demo-human" name="demo-human" />
+									<input type="checkbox" id="demo-human" name="demo-human" required oninvalid="this.setCustomValidity('Please confirm you are not a robot.')" oninput="this.setCustomValidity('')" />
 									<label for="demo-human">I am a human and not a robot</label>
 								</div>
+								<div id="form-message" style="display:none; margin-top: 20px; color: green; font-weight: bold;">
+									✅ Thank you! Your message has been sent.
+								  </div>
+								  
 								<div class="col-12">
 									<ul class="actions">
 									<li><input type="submit" value="Send Message" class="primary" /></li>
 									</ul>
 								</div>
 								</div>
-								</form>
 							</form>
 							</div>
 
@@ -267,6 +606,10 @@
 							</div>
 						</div>
 						</section>
+
+
+
+
 
 
 				<!-- Four -->
@@ -629,7 +972,34 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 				});
 			};
 			</script>
-
+			<script>
+				document.getElementById("contact-form").addEventListener("submit", async function(e) {
+				  e.preventDefault(); // Prevent normal form submit
+				
+				  const form = e.target;
+				  const data = new FormData(form);
+				
+				  try {
+					const response = await fetch(form.action, {
+					  method: "POST",
+					  body: data,
+					  headers: {
+						'Accept': 'application/json'
+					  }
+					});
+				
+					if (response.ok) {
+					  document.getElementById("form-message").style.display = "block";
+					  form.reset(); // Clear the form
+					} else {
+					  alert("Oops! There was a problem submitting your form.");
+					}
+				  } catch (error) {
+					alert("Oops! Something went wrong.");
+				  }
+				});
+				</script>
+				
 
 
 	</body>
