@@ -675,182 +675,147 @@
 						</section>
 
 
-
-				<!-- ───────────── Advanced Robot Balloon Catch ───────────── -->
+					<!-- ─────────── Robot Balloon Catch – Mobile-Ready ─────────── -->
 					<section id="robot-balloon-game" style="padding:2em;font-family:Arial, sans-serif;">
-						<h2>🚀 You've come this far — Why not take a quick break and score some balloons? 🎈</h2>
-						<p>Move the robot ◀︎/▶︎ and swing its arm ▲/▼ to catch balloons in 45 s!</p>
+						<h2>🚀 You've come this far — take a quick break and score some balloons! 🎈</h2>
+						<p>Keyboard: ◀︎/▶︎ slide, ▲/▼ swing &nbsp;|&nbsp; Mobile: tap the arrows below</p>
 					
 						<canvas id="balloonCanvas" width="600" height="400"
-								style="border:1px solid #ccc;background:#eef;"></canvas>
+								style="border:1px solid #ccc;background:#eef;max-width:100%;"></canvas>
 					
 						<p>Score: <span id="balloonScore">0</span>
 						&nbsp;|&nbsp; Time: <span id="balloonTime">45</span>s</p>
 					
 						<button id="balloonStartBtn">Start Game</button>
+					
+						<!-- Mobile control pad -->
+						<div id="touchControls" style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+						<button class="ctrl" data-key="ArrowUp">▲</button>
+						<div style="display:flex;gap:6px;">
+							<button class="ctrl" data-key="ArrowLeft">◀</button>
+							<button class="ctrl" data-key="ArrowRight">▶</button>
+						</div>
+						<button class="ctrl" data-key="ArrowDown">▼</button>
+						</div>
 					</section>
+					
+					<style>
+					/* simple mobile button style */
+					.ctrl{
+						padding:12px 18px;
+						font-size:20px;
+						border:none;
+						background:#4a8;
+						color:#fff;
+						border-radius:6px;
+					}
+					.ctrl:active{background:#3a6;}
+					@media (min-width: 768px){ /* hide on larger screens if you like */
+						#touchControls{display:none;}
+					}
+					</style>
 					
 					<script>
 					(() => {
-						const canvas   = document.getElementById('balloonCanvas');
-						const ctx      = canvas.getContext('2d');
-						const scoreEl  = document.getElementById('balloonScore');
-						const timeEl   = document.getElementById('balloonTime');
-						const startBtn = document.getElementById('balloonStartBtn');
+						/* === Canvas & DOM === */
+						const canvas = document.getElementById('balloonCanvas'),
+							ctx    = canvas.getContext('2d'),
+							scoreEl= document.getElementById('balloonScore'),
+							timeEl = document.getElementById('balloonTime'),
+							startBtn= document.getElementById('balloonStartBtn');
 					
-						// Robot with sliding base + 1-DOF arm
-						const robot = {
-						x: canvas.width/2,        // base center X
-						y: canvas.height - 30,    // base top Y
-						w: 60, h: 20,             // base size
-						speed: 6,                 // slide speed
-						armLen: 50,               // arm length
-						angle: -90,               // degrees, -90 = straight up
-						angleSpeed: 4,            // deg per keypress
-						minAngle: -160,
-						maxAngle: -20
-						};
+						/* === Robot model === */
+						const robot = { x: canvas.width/2, y: canvas.height-30,
+										w:60, h:20, speed:6,
+										armLen:50, angle:-90,
+										angleSpeed:4, minAngle:-160, maxAngle:-20 };
 					
 						const balloons = [];
-						let score = 0, timeLeft = 45;
-						let gameLoop, timerLoop;
+						let score=0, timeLeft=45, gameLoop, timerLoop;
 					
-						// spawn random balloons
-						function spawnBalloon() {
-						balloons.push({
-							x: Math.random()*(canvas.width-30)+15,
-							y: -20,
-							r: 15,
-							speed: 1 + Math.random()*2,
-							color: `hsl(${Math.random()*360|0}, 80%, 60%)`
+						/* === Helpers === */
+						const rnd = (min,max)=>Math.random()*(max-min)+min;
+						const resetGame = () => {
+						balloons.length=0; score=0; timeLeft=45;
+						robot.x=canvas.width/2; robot.angle=-90;
+						scoreEl.textContent=score; timeEl.textContent=timeLeft;
+						};
+						const spawnBalloon = ()=> balloons.push({
+						x:rnd(15, canvas.width-15), y:-20, r:15,
+						speed:rnd(1,3), color:`hsl(${rnd(0,360)|0},80%,60%)`
 						});
-						}
-					
-						function resetGame() {
-						balloons.length = 0;
-						score = 0;
-						timeLeft = 45;
-						robot.x = canvas.width/2;
-						robot.angle = -90;
-						scoreEl.textContent = score;
-						timeEl.textContent = timeLeft;
-						}
-					
-						function endGame() {
-						clearInterval(gameLoop);
-						clearInterval(timerLoop);
+						const endGame = ()=>{
+						clearInterval(gameLoop); clearInterval(timerLoop);
 						alert(`Time’s up! Final score: ${score}`);
-						startBtn.disabled = false;
-						}
+						startBtn.disabled=false;
+						};
 					
-						// draw robot base + arm + gripper
-						function drawRobot() {
+						/* === Drawing === */
+						function drawRobot(){
 						// base
-						ctx.fillStyle = '#4a8';
-						ctx.fillRect(robot.x - robot.w/2, robot.y, robot.w, robot.h);
+						ctx.fillStyle='#4a8';
+						ctx.fillRect(robot.x-robot.w/2, robot.y, robot.w, robot.h);
 						// wheels
-						ctx.fillStyle = '#333';
-						[ -robot.w/3, +robot.w/3 ].forEach(dx => {
-							ctx.beginPath();
-							ctx.arc(robot.x+dx, robot.y+robot.h, 10, 0, 2*Math.PI);
-							ctx.fill();
+						ctx.fillStyle='#333';
+						[-robot.w/3, robot.w/3].forEach(dx=>{
+							ctx.beginPath(); ctx.arc(robot.x+dx, robot.y+robot.h,10,0,2*Math.PI); ctx.fill();
 						});
 						// arm
-						const rad = robot.angle * Math.PI/180;
-						const ex = robot.x + Math.cos(rad)*robot.armLen;
-						const ey = robot.y + Math.sin(rad)*robot.armLen;
-						ctx.strokeStyle = '#4a8';
-						ctx.lineWidth = 6;
-						ctx.beginPath();
-						ctx.moveTo(robot.x, robot.y);
-						ctx.lineTo(ex, ey);
-						ctx.stroke();
-						// gripper tip
-						ctx.fillStyle = '#4a8';
-						ctx.beginPath();
-						ctx.arc(ex, ey, 8, 0, 2*Math.PI);
-						ctx.fill();
-						// save tip coords for collision
-						robot.tipX = ex;
-						robot.tipY = ey;
+						const rad = robot.angle*Math.PI/180,
+								ex = robot.x+Math.cos(rad)*robot.armLen,
+								ey = robot.y+Math.sin(rad)*robot.armLen;
+						ctx.strokeStyle='#4a8'; ctx.lineWidth=6;
+						ctx.beginPath(); ctx.moveTo(robot.x,robot.y); ctx.lineTo(ex,ey); ctx.stroke();
+						ctx.fillStyle='#4a8'; ctx.beginPath(); ctx.arc(ex,ey,8,0,2*Math.PI); ctx.fill();
+						robot.tipX=ex; robot.tipY=ey;
 						}
 					
-						function draw() {
+						function draw(){
 						ctx.clearRect(0,0,canvas.width,canvas.height);
-					
-						// balloons
-						balloons.forEach((b,i) => {
-							b.y += b.speed;
-							ctx.fillStyle = b.color;
-							ctx.beginPath();
-							ctx.arc(b.x, b.y, b.r, 0, 2*Math.PI);
-							ctx.fill();
-							// string
-							ctx.strokeStyle = '#555';
-							ctx.beginPath();
-							ctx.moveTo(b.x, b.y+b.r);
-							ctx.lineTo(b.x, b.y+b.r+20);
-							ctx.stroke();
+						balloons.forEach((b,i)=>{
+							b.y+=b.speed;
+							ctx.fillStyle=b.color;
+							ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,2*Math.PI); ctx.fill();
+							ctx.strokeStyle='#555'; ctx.beginPath();
+							ctx.moveTo(b.x, b.y+b.r); ctx.lineTo(b.x,b.y+b.r+20); ctx.stroke();
 							// catch?
-							const dx = b.x - robot.tipX,
-								dy = b.y - robot.tipY;
-							if (Math.hypot(dx,dy) < b.r + 8) {
-							balloons.splice(i,1);
-							scoreEl.textContent = ++score;
+							if(Math.hypot(b.x-robot.tipX,b.y-robot.tipY)<b.r+8){
+							balloons.splice(i,1); scoreEl.textContent=++score;
 							}
-							// remove if below
-							if (b.y - b.r > canvas.height) balloons.splice(i,1);
+							if(b.y-b.r>canvas.height) balloons.splice(i,1);
 						});
-					
 						drawRobot();
 						}
 					
-						// controls: ◀ ▶ slide, ▲ ▼ swing
-						document.addEventListener('keydown', e => {
-						if (!gameLoop) return;
-						if (e.key === 'ArrowLeft')  robot.x -= robot.speed;
-						if (e.key === 'ArrowRight') robot.x += robot.speed;
-						if (e.key === 'ArrowUp')    robot.angle = Math.max(robot.minAngle, robot.angle - robot.angleSpeed);
-						if (e.key === 'ArrowDown')  robot.angle = Math.min(robot.maxAngle, robot.angle + robot.angleSpeed);
-						// clamp within canvas
-						robot.x = Math.max(robot.w/2, Math.min(canvas.width-robot.w/2, robot.x));
+						/* === Controls (keyboard + touch) === */
+						function handleMove(key){
+						if(!gameLoop) return;
+						if(key==='ArrowLeft')  robot.x-=robot.speed;
+						if(key==='ArrowRight') robot.x+=robot.speed;
+						if(key==='ArrowUp')    robot.angle=Math.max(robot.minAngle,robot.angle-robot.angleSpeed);
+						if(key==='ArrowDown')  robot.angle=Math.min(robot.maxAngle,robot.angle+robot.angleSpeed);
+						robot.x=Math.max(robot.w/2,Math.min(canvas.width-robot.w/2,robot.x));
+						}
+						document.addEventListener('keydown',e=>handleMove(e.key));
+					
+						/* Touch buttons */
+						document.querySelectorAll('.ctrl').forEach(btn=>{
+						const key = btn.dataset.key;
+						btn.addEventListener('touchstart', e=>{ e.preventDefault(); handleMove(key); });
+						btn.addEventListener('touchmove',  e=>{ e.preventDefault(); handleMove(key); });
 						});
 					
-						startBtn.onclick = () => {
-						resetGame();
-						startBtn.disabled = true;
-						// game loop
-						gameLoop = setInterval(() => {
-							if (Math.random() < 0.03) spawnBalloon();
-							draw();
-						}, 30);
-						// timer
-						timerLoop = setInterval(() => {
-							if (--timeLeft <= 0) endGame();
-							timeEl.textContent = timeLeft;
-						}, 1000);
+						/* === Start === */
+						startBtn.onclick = ()=>{
+						resetGame(); startBtn.disabled=true;
+						gameLoop=setInterval(()=>{ if(Math.random()<0.03) spawnBalloon(); draw(); },30);
+						timerLoop=setInterval(()=>{ if(--timeLeft<=0) endGame(); timeEl.textContent=timeLeft; },1000);
 						};
 					})();
-
-					// Support touch interaction for mobile
-					function handleTouchEvent(evt) {
-					if (evt.type === 'touchstart') {
-						const touch = evt.touches[0];
-						const target = document.elementFromPoint(touch.clientX, touch.clientY);
-						if (target && target.classList.contains("balloon")) {
-						target.click();  // simulate click on touch
-						}
-					}
-					}
-
-					document.addEventListener("touchstart", handleTouchEvent, { passive: true });
-					
-
 					</script>
-					<!-- ────────────────────────────────────────────────────────── -->
-  
+					<!-- ───────────────────────────────────────────────────────── -->
 					
-						  
+											
 
 
 
