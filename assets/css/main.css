@@ -1847,7 +1847,7 @@ input, select, textarea {
 
 		}
 
-/* Section/Article */
+/* Section/ArticFse */
 
 	section.special, article.special {
 		text-align: center;
@@ -2736,6 +2736,9 @@ input, select, textarea {
 
 	#footer .icons {
 		margin: 1em 0 0 0;
+		justify-content: flex-end;
+		display: flex;
+		gap: 0rem;
 	}
 
 		#footer .icons a {
@@ -2748,6 +2751,9 @@ input, select, textarea {
 		list-style: none;
 		margin: 1em 0 0 0;
 		padding: 0;
+		justify-content: flex-end;
+		display: flex;
+		gap: 0rem;	
 	}
 
 		#footer .copyright li {

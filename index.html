@@ -19,7 +19,6 @@
 					<a href="#" class="image avatar"><img src="images/talal2.jpg" alt="" /></a>
 					<h1><strong>Talal Ahmad</strong><br />
 					<span>Robotics & AI Engineer</span><br />
-					<span>Chemnitz, Germany</span></h1>
 				</div>
 			</header>
 
@@ -38,14 +37,14 @@
 						With a strong background in robotics, electronics, and mechanical systems—alongside experience in software development and program management—I take a systems-level approach to solving real-world challenges in autonomous navigation, perception, and control.
 						</p>
 						<p>
-						My work bridges the gap between research and application, aligning with Fraunhofer’s mission to turn cutting-edge ideas into practical, industrial-strength robotics solutions. I thrive in interdisciplinary teams, enjoy tackling complex problems, and have a proven ability to lead and contribute to high-impact robotics projects from concept to deployment.
+						My work bridges the gap between research and application, aligning with company’s mission to turn cutting-edge ideas into practical, industrial-strength robotics solutions. I thrive in interdisciplinary teams, enjoy tackling complex problems, and have a proven ability to lead and contribute to high-impact robotics projects from concept to deployment.
 						</p>
 						<p>
 						I'm excited by the opportunity to help shape the future of autonomous robotics and contribute to innovations that have real societal value. If you'd like to collaborate or discuss opportunities, please feel free to contact me using the information below.
 						</p>
 					</section>
 						<ul class="actions">
-							<a href="#contact" class="button">Learn More</a>
+							<a href="#two" class="button">Learn More</a>
 						</ul>
 					</section>
 
@@ -397,8 +396,99 @@
 
 
 
+				<!-- Five -->
+				<article class="col-6 col-12-xsmall work-item">
+					<div class="image fit thumb" onclick="openModal('smartpick&place')">
+					<img src="images/fulls/pick_and_place.gif" alt="Hand-Eye Calibration" />
+					<h3>Smart Pick-and-Place GUI (Python + PyQt + RealSense + UR Robots)</h3>
+					</div>
+				</article>
+					
+				<div id="smartpick&place" class="custom-modal">
+					<div class="custom-modal-content">
+					<span class="custom-modal-close" onclick="closeModal('smartpick&place')">&times;</span>
+						<<h2>Smart Pick-and-Place GUI (Python + PyQt + RealSense + UR Robots)</h2>
+						<p>
+						  A desktop application that turns an Intel RealSense camera, a UR robot arm, and a state-of-the-art object-segmentation model into an interactive pick-and-place workstation. Everything runs from a single PyQt window with live video, mouse-click grasp planning, and one-button execution.
+						</p>
+					  
+						<h3>Core Workflow</h3>
+						<ul>
+						  <li><strong>Live RGB-D Feed:</strong>
+							<ul>
+							  <li>Starts an Intel RealSense pipeline and streams colour-over-depth imagery at 30 FPS.</li>
+							  <li>Aligns depth to colour on-the-fly for accurate 3-D read-outs.</li>
+							</ul>
+						  </li>
+						  <li><strong>Interactive Grasp Selection:</strong>
+							<ul>
+							  <li>Click anywhere on the live image to read its exact 3-D coordinates (via RealSense intrinsics).</li>
+							  <li>A single key spawns the SAM segmentation network, outlines the object, and computes PCA for its principal axes.</li>
+							</ul>
+						  </li>
+						  <li><strong>Automatic Grasp Pose Generation:</strong>
+							<ul>
+							  <li>Uses a custom Vacuum-Gripper model + spiral search to find the best suction pose along the major axis.</li>
+							  <li>Converts image-plane grasp into a robot-base pose through a calibrated chain: <code>Base → Gripper → Camera</code>.</li>
+							</ul>
+						  </li>
+						  <li><strong>Robot Control & Safety:</strong>
+							<ul>
+							  <li>Connects to Universal Robots (RTDE) and toggles teach mode automatically.</li>
+							  <li>Generates a three-stage linear path (approach → grasp → retreat) with smooth velocity/acceleration limits.</li>
+							  <li>Home, Move, Pick, Segment, and Grasp-Pose buttons are all multi-threaded to keep the UI responsive.</li>
+							</ul>
+						  </li>
+						  <li><strong>Modular Worker Threads:</strong>
+							<ul>
+							  <li>Heavy tasks (e.g., segmentation, PCA, robot motion) run in background <code>QThreads</code>.</li>
+							  <li>Signals carry numpy arrays, masks, and status strings back to the main thread without blocking video.</li>
+							</ul>
+						  </li>
+						</ul>
 
+						<video width="100%" controls autoplay muted loop>
+							<source src="images/fulls/pickandplace.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					
 
+					  
+						<h3>Highlights for Stakeholders</h3>
+						<table style="width: 100%; border-collapse: collapse;">
+						  <thead>
+							<tr style="background-color: #f4f4f4;">
+							  <th style="text-align: left; padding: 8px; border: 1px solid #ccc;">Feature</th>
+							  <th style="text-align: left; padding: 8px; border: 1px solid #ccc;">Value</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr>
+							  <td style="padding: 8px; border: 1px solid #ccc;">One-click grasping demo</td>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Showcases real-time vision → planning → actuation in under a second.</td>
+							</tr>
+							<tr>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Re-usable codebase</td>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Modular workers mean you can swap in new cameras or robots with minimal edits.</td>
+							</tr>
+							<tr>
+							  <td style="padding: 8px; border: 1px solid #ccc;">End-to-end calibration</td>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Uses pre-computed hand-eye matrices to convert clicks to base-frame coordinates.</td>
+							</tr>
+							<tr>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Safety-first controls</td>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Automatically toggles teach mode and ensures safe start/end poses.</td>
+							</tr>
+							<tr>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Scalable vision stack</td>
+							  <td style="padding: 8px; border: 1px solid #ccc;">Integrates SAM now, but can support any PyTorch/TensorFlow model.</td>
+							</tr>
+						  </tbody>
+						</table>
+
+					</div>  
+				</div>
+	
 
 
 
@@ -572,7 +662,7 @@
 								</div>
 								<div class="col-12">
 									<input type="checkbox" id="demo-human" name="demo-human" required oninvalid="this.setCustomValidity('Please confirm you are not a robot.')" oninput="this.setCustomValidity('')" />
-									<label for="demo-human">I am a human and not a robot</label>
+									<label for="demo-human">👨‍🔬 If I were a robot, I’d be smart enough to hide it better.</label>
 								</div>
 								<div id="form-message" style="display:none; margin-top: 20px; color: green; font-weight: bold;">
 									✅ Thank you! Your message has been sent.
@@ -936,10 +1026,10 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<footer id="footer">
 				<div class="inner">
 					<ul class="icons">
-						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="mailto:talalahmad_20@yahoo.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="https://www.linkedin.com/in/talalahmad99/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+						<li><a href="https://github.com/Azad99" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="https://medium.com/@talalahmad_20" class="icon brands fa-medium"><span class="label">Medium</span></a></li>
 					</ul>
 					<ul class="copyright">
 						<li>&copy; Talal Ahmad</li><li>2025</a></li>
